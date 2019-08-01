@@ -49,6 +49,10 @@ import ScrollViewExample from "./components/scroll-view-example";
 import ChartExample from "./components/chart-example";
 import TabPanelExample from "./components/tab-panel-example";
 import FormExample from "./components/form-example";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 
 export default {
     components: {

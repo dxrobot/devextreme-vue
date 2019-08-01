@@ -1,10 +1,14 @@
 import * as VueType from "vue";
 import IVue, { VNode, VueConstructor } from "vue";
+<<<<<<< HEAD
 import { ScopedSlot } from "vue/types/vnode";
+=======
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 
 import * as events from "devextreme/events";
 
 import { pullAllChildren } from "./children-processing";
+<<<<<<< HEAD
 import { getOption } from "./config";
 import Configuration, { bindOptionWatchers, subscribeOnUpdates } from "./configuration";
 import { IConfigurable } from "./configuration-component";
@@ -15,12 +19,25 @@ import {
     IEventBusHolder,
     mountTemplate
 } from "./templates-discovering";
+=======
+import Configuration, { bindOptionWatchers, subscribeOnUpdates } from "./configuration";
+import { IConfigurable } from "./configuration-component";
+import { IExtension, IExtensionComponentNode } from "./extension-component";
+import { camelize, extractScopedSlots, forEachChildNode, toComparable } from "./helpers";
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 
 interface IWidgetComponent extends IConfigurable {
     $_instance: any;
     $_WidgetClass: any;
 }
 
+<<<<<<< HEAD
+=======
+interface IEventBusHolder {
+    eventBus: IVue;
+}
+
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 interface IBaseComponent extends IVue, IWidgetComponent, IEventBusHolder {
     $_isExtension: boolean;
     $_createWidget: (element: any) => void;
@@ -30,6 +47,22 @@ interface IBaseComponent extends IVue, IWidgetComponent, IEventBusHolder {
     $_createEmitters: () => void;
     $_fillTemplate: () => void;
     $_processChildren: () => void;
+<<<<<<< HEAD
+=======
+}
+
+function asConfigurable(vueComponent: IVue): IConfigurable | undefined {
+    if (!vueComponent.$vnode) {
+        return undefined;
+    }
+
+    const configurable = vueComponent.$vnode.componentOptions as any as IConfigurable;
+    if (!configurable.$_config || !configurable.$_config.name) {
+        return undefined;
+    }
+
+    return configurable;
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 }
 
 const Vue = VueType.default || VueType;
@@ -143,6 +176,7 @@ const BaseComponent: VueConstructor<IBaseComponent> = Vue.extend({
         },
 
         $_getIntegrationOptions(): object {
+<<<<<<< HEAD
             const result: Record<string, any> = {
                 integrationOptions:  {
                     watchMethod: this.$_getWatchMethod(),
@@ -162,6 +196,44 @@ const BaseComponent: VueConstructor<IBaseComponent> = Vue.extend({
                 });
             }
 
+=======
+            const TEMPLATE_PROP = "template";
+
+            function shouldAddTemplate(child: IVue) {
+                return TEMPLATE_PROP in child.$props
+                && (child.$vnode.data && child.$vnode.data.scopedSlots);
+            }
+
+            const result: Record<string, any> = {
+                integrationOptions:  {
+                    watchMethod: this.$_getWatchMethod(),
+                },
+                ...this.$_getExtraIntegrationOptions(),
+            };
+
+            const templates = extractScopedSlots(this.$scopedSlots, Object.keys(this.$slots));
+
+            this.$children.forEach((child: IVue) => {
+                const configurable = asConfigurable(child);
+                if (!configurable) {
+                    return;
+                }
+
+                if (shouldAddTemplate(child)) {
+                    const templateName = `${configurable.$_config.fullPath}.${TEMPLATE_PROP}`;
+                    templates[templateName] = child.$scopedSlots.default;
+                    result[templateName] = templateName;
+                }
+            });
+
+            if (Object.keys(templates).length) {
+                result.integrationOptions.templates = {};
+                Object.keys(templates).forEach((name: string) => {
+                    result.integrationOptions.templates[name] = this.$_fillTemplate(templates[name], name);
+                });
+            }
+
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
             return result;
         },
 
@@ -196,12 +268,32 @@ const BaseComponent: VueConstructor<IBaseComponent> = Vue.extend({
             return;
         },
 
+<<<<<<< HEAD
         $_fillTemplate(template: ScopedSlot, name: string): object {
             return {
                 render: (data: any) => {
                     const scopeData = getOption("useLegacyTemplateEngine")
                         ? data.model
                         : { data: data.model, index: data.index };
+=======
+        $_fillTemplate(template: any, name: string): object {
+            return {
+                render: (data: any) => {
+                    const vm = new Vue({
+                        name,
+                        inject: ["eventBus"],
+                        parent: this,
+                        created() {
+                            (this as IEventBusHolder).eventBus.$on("updated", () => {
+                                this.$forceUpdate();
+                            });
+                        },
+                        render: () => template(data.model)
+                    }).$mount();
+
+                    const element = vm.$el;
+                    element.classList.add(DX_TEMPLATE_WRAPPER_CLASS);
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 
                     const container = data.container.get ? data.container.get(0) : data.container;
                     const placeholder = document.createElement("div");

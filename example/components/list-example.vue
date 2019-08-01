@@ -28,7 +28,11 @@
         </dx-list>
         <br/>
         
+<<<<<<< HEAD
         <h4>List with static items (vue < 2.6.0)</h4>
+=======
+        <h4>List with static items</h4>
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
         <dx-list>
             <dx-item>
                 <div slot-scope="_">1</div>
@@ -37,6 +41,7 @@
                 <div slot-scope="_">2</div>
             </dx-item>
             <dx-item>
+<<<<<<< HEAD
                 <div slot-scope="_">3 - <i>third</i></div>
             </dx-item>
         </dx-list>
@@ -51,6 +56,9 @@
             </dx-item>
             <dx-item>
                 <template #default><span>3 - <i>third</i></span></template>
+=======
+                <div slot-scope="_">3</div>
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
             </dx-item>
         </dx-list>
 

@@ -9,7 +9,11 @@
                     <dx-item text="Item 1-3-1"/>
                 </dx-item>
                 <dx-item>
+<<<<<<< HEAD
                     <template #default>Inline template</template>
+=======
+                    <div slot-scope="_">Inline template</div>
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
                     <dx-item text="Item 1-4-1"/>
                 </dx-item>
             </dx-item>
@@ -20,6 +24,7 @@
         <h4>Menu with static item templates</h4>
         <dx-menu>
             <dx-item>
+<<<<<<< HEAD
                 <template #default>Item 1</template>
                 <dx-item>
                     <template #default>Item 1-1</template>
@@ -31,14 +36,34 @@
                     <template #default>Item 1-3</template>
                     <dx-item>
                         <template #default>Item 1-3-1</template>
+=======
+                <div slot-scope="_">Item 1</div>
+                <dx-item>
+                    <div slot-scope="_">Item 1-1</div>
+                </dx-item>
+                <dx-item>
+                    <div slot-scope="_">Item 1-2</div>
+                </dx-item>
+                <dx-item>
+                    <div slot-scope="_">Item 1-3</div>
+                    <dx-item>
+                        <div slot-scope="_">Item 1-3-1</div>
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
                     </dx-item>
                 </dx-item>
             </dx-item>
             <dx-item>
+<<<<<<< HEAD
                 <template #default>Item 2</template>
             </dx-item>
             <dx-item>
                 <template #default>Item 3</template>
+=======
+                <div slot-scope="_">Item 2</div>
+            </dx-item>
+            <dx-item>
+                <div slot-scope="_">Item 3</div>
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
             </dx-item>
         </dx-menu>
     </example-block>

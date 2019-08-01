@@ -29,7 +29,11 @@
             :colSpan="2"
         >
             <dx-text-area
+<<<<<<< HEAD
                 slot-scope="{ data }"
+=======
+                slot-scope="data"
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
                 :minHeight="80"
                 :value="data.editorOptions.value"
             />

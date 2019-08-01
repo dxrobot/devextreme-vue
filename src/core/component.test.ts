@@ -1008,14 +1008,22 @@ describe("nested option", () => {
     });
 });
 
+<<<<<<< HEAD
 function renderTemplate(name: string, model?: object, container?: any, index?: number): Element {
+=======
+function renderTemplate(name: string, model?: object, container?: any): Element {
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
     model = model || {};
     container = container || document.createElement("div");
     const render = WidgetClass.mock.calls[0][1].integrationOptions.templates[name].render;
     return render({
         container,
+<<<<<<< HEAD
         model,
         index
+=======
+        model
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
     });
 }
 
@@ -1023,8 +1031,13 @@ describe("template", () => {
 
     const DX_TEMPLATE_WRAPPER = "dx-template-wrapper";
 
+<<<<<<< HEAD
     function renderItemTemplate(model?: object, container?: any, index?: number): Element {
         return renderTemplate("item", model, container, index);
+=======
+    function renderItemTemplate(model?: object, container?: any): Element {
+        return renderTemplate("item", model, container);
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
     }
 
     it("passes integrationOptions to widget", () => {
@@ -1453,6 +1466,157 @@ describe("static items", () => {
     });
 
     it("doesn't pass integrationOptions to widget if nested item has sub nested item", () => {
+        const NestedItem = Vue.extend({
+            extends: DxConfiguration,
+            props: {
+                prop1: Number,
+                template: String
+            }
+        });
+        (NestedItem as any as IConfigurationComponent).$_optionName = "items";
+        (NestedItem as any as IConfigurationComponent).$_isCollectionItem = true;
+
+        const subNested = buildTestConfigCtor();
+        (subNested as any as IConfigurationComponent).$_optionName = "subNestedOption";
+
+        new Vue({
+            template: `<test-component>
+                         <nested-item>
+                            <sub-nested prop2="abc"/>
+                         </nested-item>
+                       </test-component>`,
+            components: {
+                TestComponent,
+                subNested,
+                NestedItem
+            }
+        }).$mount();
+
+        expect(WidgetClass.mock.calls[0][1].integrationOptions.templates).toBeUndefined();
+    });
+});
+
+describe("static items", () => {
+    it("passes integrationOptions to widget", () => {
+        const NestedItem = Vue.extend({
+            extends: DxConfiguration,
+            props: {
+                prop1: Number,
+                template: String
+            }
+        });
+        (NestedItem as any as IConfigurationComponent).$_optionName = "items";
+        (NestedItem as any as IConfigurationComponent).$_isCollectionItem = true;
+
+        new Vue({
+            template: `<test-component>
+                         <nested-item>
+                            <div slot-scope="_">1</div>
+                         </nested-item>
+                       </test-component>`,
+            components: {
+                TestComponent,
+                NestedItem
+            }
+        }).$mount();
+        const integrationOptions = WidgetClass.mock.calls[0][1].integrationOptions;
+
+        expect(integrationOptions).toBeDefined();
+        expect(integrationOptions.templates).toBeDefined();
+
+        expect(integrationOptions.templates["items[0].template"]).toBeDefined();
+        expect(typeof integrationOptions.templates["items[0].template"].render).toBe("function");
+    });
+
+    it("doesn't pass integrationOptions to widget if template prop is absent", () => {
+        const NestedItem = Vue.extend({
+            extends: DxConfiguration,
+            props: {
+                prop1: Number
+            }
+        });
+        (NestedItem as any as IConfigurationComponent).$_optionName = "items";
+        (NestedItem as any as IConfigurationComponent).$_isCollectionItem = true;
+
+        new Vue({
+            template: `<test-component>
+                         <nested-item>
+                            <div slot-scope="_">1</div>
+                         </nested-item>
+                       </test-component>`,
+            components: {
+                TestComponent,
+                NestedItem
+            }
+        }).$mount();
+        const integrationOptions = WidgetClass.mock.calls[0][1].integrationOptions;
+
+        expect(integrationOptions).toBeDefined();
+        expect(integrationOptions.templates).toBeUndefined();
+    });
+
+    it("renders", () => {
+        const NestedItem = Vue.extend({
+            extends: DxConfiguration,
+            props: {
+                prop1: Number,
+                template: String
+            }
+        });
+        (NestedItem as any as IConfigurationComponent).$_optionName = "items";
+        (NestedItem as any as IConfigurationComponent).$_isCollectionItem = true;
+
+        new Vue({
+            template: `<test-component>
+                         <nested-item>
+                            <div slot-scope="_">1</div>
+                         </nested-item>
+                       </test-component>`,
+            components: {
+                TestComponent,
+                NestedItem
+            }
+        }).$mount();
+
+        const renderedTemplate = renderTemplate("items[0].template");
+
+        expect(renderedTemplate.innerHTML).toBe("1");
+    });
+
+    it("render nested template", () => {
+        const NestedItem = Vue.extend({
+            extends: DxConfiguration,
+            props: {
+                prop1: Number,
+                template: String
+            }
+        });
+        (NestedItem as any as IConfigurationComponent).$_optionName = "items";
+        (NestedItem as any as IConfigurationComponent).$_isCollectionItem = true;
+
+        new Vue({
+            template: `<test-component>
+                         <nested-item>
+                            <div slot-scope="_">1</div>
+                            <nested-item>
+                                <div slot-scope="_">2</div>
+                            </nested-item>
+                         </nested-item>
+                       </test-component>`,
+            components: {
+                TestComponent,
+                NestedItem
+            }
+        }).$mount();
+
+        const renderedTemplate = renderTemplate("items[0].template");
+        const renderedNestedTemplate = renderTemplate("items[0].items[0].template");
+
+        expect(renderedTemplate.innerHTML).toBe("1");
+        expect(renderedNestedTemplate.innerHTML).toBe("2");
+    });
+
+    it("doesn't pass integrationOptions to widget if nestd item has sub nested item", () => {
         const NestedItem = Vue.extend({
             extends: DxConfiguration,
             props: {

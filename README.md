@@ -3,15 +3,19 @@
 [![Build Status](https://img.shields.io/shippable/5444c5ecb904a4b21567b0ff/master.svg?maxAge=43200)](https://app.shippable.com/github/DevExpress/devextreme-vue)
 [![NPM](https://img.shields.io/npm/v/devextreme-vue.svg?maxAge=43200)](https://www.npmjs.com/package/devextreme-vue)
 
+<<<<<<< HEAD
 ### If you are looking for the v18.2 branch, please follow this link: [https://github.com/DevExpress/devextreme-vue/tree/18.2](https://github.com/DevExpress/devextreme-vue/tree/18.2).
 
+=======
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 This project allows you to use [DevExtreme](http://js.devexpress.com) [Vue](https://vuejs.org) Components.
 
 
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Install DevExtreme](#installation)
-  * [Use DevExtreme Components](#use-components)
+  * [Import Stylesheets](#import_devextreme_stylesheets)
+  * [Import DevExtreme Components](#import-components)
 * [API Reference](#api-reference)
 * [Component Configuration](#component-configuration)
   * [Set Component Option](#component-option)
@@ -51,8 +55,9 @@ The further configuration steps depend on which build tool, bundler or module lo
 * [Configuring Webpack](https://github.com/DevExpress/devextreme-vue/blob/master/docs/using-webpack.md)
 * [Configuring Vue CLI](https://github.com/DevExpress/devextreme-vue/blob/master/docs/using-vue-cli.md)
 
-### <a name="import_devextreme_modules"></a>Import DevExtreme Modules and Themes  ###
+### <a name="import_devextreme_stylesheets"></a>Import Stylesheets  ###
 
+<<<<<<< HEAD
 Import DevExtreme modules in a DevExtreme component's file.
 
 ```js
@@ -60,18 +65,24 @@ import DxButton from 'devextreme-vue/button';
 ```
 
 DevExtreme themes can be imported only once in your application's main file:
+=======
+Import `dx.common.css` and a [predefined theme stylesheet](/Documentation/Guide/Themes_and_Styles/Predefined_Themes/) in the application's main file:
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 
 ```js
 import 'devextreme/dist/css/dx.common.css';
 import 'devextreme/dist/css/dx.light.compact.css';
 ```
 
-See the [Predefined Themes](https://js.devexpress.com/Documentation/Guide/Themes/Predefined_Themes/#Themes_in_Sites) guide for more information on DevExtreme themes.
+### <a name="import-components"></a>Import DevExtreme Components  ###
 
-
+<<<<<<< HEAD
 ### <a name="use-components"></a>Use DevExtreme Components  ###
 
 You can use DevExtreme components in a [single file component](https://vuejs.org/v2/guide/single-file-components.html),
+=======
+Import the DevExtreme components you are going to use in a [single file component](https://vuejs.org/v2/guide/single-file-components.html)...
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 
 ```html
 <template>
@@ -80,6 +91,13 @@ You can use DevExtreme components in a [single file component](https://vuejs.org
 
 <script>
 import DxButton from 'devextreme-vue/button';
+<<<<<<< HEAD
+=======
+
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.compact.css';
+
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 export default {
   name: 'HelloWorld',
   data() {
@@ -94,12 +112,18 @@ export default {
 </script>
 ```
 
+<<<<<<< HEAD
 ... in a [jsx](https://vuejs.org/v2/guide/render-function.html#JSX) render function,
+=======
+... or in a [jsx](https://vuejs.org/v2/guide/render-function.html#JSX) render function...
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 
 ```jsx
 import Vue from 'vue';
 import { DxButton } from 'devextreme-vue';
 
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.compact.css';
 
 new Vue({
   el: '#app',
@@ -120,6 +144,12 @@ new Vue({
 ... or directly in a vue template.
 
 ```js
+import Vue from 'vue';
+import DxButton from 'devextreme-vue/button';
+
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.compact.css';
+
 new Vue({
   el: '#app',
   components: { DxButton },
@@ -179,7 +209,10 @@ The DevExtreme Vue editors also support [`v-model`](https://vuejs.org/v2/guide/f
 You can customize widget elements' appearance via the corresponding template properties. 
 
 To specify a DevExtreme Vue Component template's markup, use a [named slot](https://vuejs.org/v2/guide/components-slots.html#Named-Slots). You should also specify a [slot scope](https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots) to access the template element's data.
+<<<<<<< HEAD
 Note that the slot should not contain more than one root element.
+=======
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 
 For instance, you can specify the itemTemplate:
 
@@ -241,7 +274,11 @@ For example, you can specify the [ScrollView](https://js.devexpress.com/Document
 You can subscribe to DevExtreme Component events using the Vue's [`v-on` directive](https://vuejs.org/v2/guide/events.html) (or `@` shorthand)
 
 ```html
+<<<<<<< HEAD
 <dx-text-box v-model="text" @focus-in="handleFocusIn" />
+=======
+<dx-text-box v-model="text" @focusIn="handleFocusIn" />
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 ```
 ```js
 data: function() {
@@ -453,6 +490,7 @@ If a configuration component has the `template` option, you can put the default-
 
 ```html
 <dx-list>
+<<<<<<< HEAD
   <dx-item #default>
     <span>orange</span>
   </dx-item>
@@ -461,6 +499,16 @@ If a configuration component has the `template` option, you can put the default-
   </dx-item>
   <dx-item #default>
     <span>black</span>
+=======
+  <dx-item>
+    <span slot-scope="_">orange</span>
+  </dx-item>
+  <dx-item>
+    <span slot-scope="_">white</span>
+  </dx-item>
+  <dx-item>
+    <span slot-scope="_">black</span>
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
   </dx-item>
 </dx-list>
 ```

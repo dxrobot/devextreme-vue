@@ -26,6 +26,30 @@ export function isEqual(value1, value2) {
     return false;
 }
 
+<<<<<<< HEAD
+=======
+export function extractScopedSlots(
+    obj: Record<string, any>,
+    nonScopedSlots: string[]
+): Record<string, any> {
+
+    const result = {};
+
+    Object.keys(obj).forEach((key: string) => {
+        if (nonScopedSlots && nonScopedSlots.indexOf(key) > -1) {
+            return;
+        }
+
+        const value = obj[key];
+        if (value instanceof Function) {
+            result[key] = value;
+        }
+    });
+
+    return result;
+}
+
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
 export function forEachChildNode(
     el: Node,
     callback: (child: ReturnType<Node["childNodes"]["item"]>) => void

@@ -1,12 +1,21 @@
 <template>
     <example-block title="dxTabPanel">
         <dx-tab-panel :items="tabs">
+<<<<<<< HEAD
             <template #tab1>
                 <h3>First Tab Content</h3>
             </template>
             <template #tab2>
                 <async-component/>
             </template>
+=======
+            <div slot="tab1" slot-scope="_">
+                <h3>First Tab Content</h3>
+            </div>
+            <div slot="tab2" slot-scope="_">
+                <async-component/>
+            </div>
+>>>>>>> 59f324ed156fcb8f7f724856bf162f52baac79c3
         </dx-tab-panel>
     </example-block>
 </template>
